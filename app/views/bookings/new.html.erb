@@ -1,0 +1,22 @@
+<h1>New Booking</h1>
+
+<%= form_with model: @booking do |form| %>
+  <div>
+    <%= form.label :car_id %>
+    <%= form.collection_select :car_id, @cars, :id, :title %>
+  </div>
+
+  <div>
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date %>
+  </div>
+
+  <div>
+    <%= form.label :end_date %>
+    <%= form.date_select :end_date %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Booking" %>
+  </div>
+<% end %>
