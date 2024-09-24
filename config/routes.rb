@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users, 
+             controllers: {
+               sessions: 'users/sessions',
+               registrations: 'users/registrations'
+             }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'home/index'
@@ -10,22 +15,29 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root "home#index"  # Change "home#index" to your actual home controller action
 
-  # Devise routes for User model
-  devise_for :users, 
-             controllers: {
-               sessions: 'users/sessions',
-               registrations: 'users/registrations'
-             }
+   
+
+
+  # # Devise routes for User model
+  # devise_for :users, 
+  #            controllers: {
+  #              sessions: 'users/sessions',
+  #              registrations: 'users/registrations'
+  #            }
 
   # Profile resource routes
-  resources :profiles do
+  # resources :profiles do
+  #   member do
+  #     get 'details'  # Example of a custom member route
+  #   end
+  # end
+  # resources :bookings, only: [:new, :create, :index]
+
+  resources :users do
     member do
-      get 'details'  # Example of a custom member route
+      delete :destroy
     end
   end
-  resources :bookings, only: [:new, :create, :index]
-
-
   
 
 end

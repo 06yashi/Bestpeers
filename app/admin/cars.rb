@@ -1,6 +1,6 @@
 ActiveAdmin.register Car do
   # Permit parameters for form submission
-  permit_params :name, :model, :year, :price
+  permit_params :name, :model,  :price
 
   # Customize the index page table
   index do

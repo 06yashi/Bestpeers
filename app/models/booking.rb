@@ -6,8 +6,8 @@ class Booking < ApplicationRecord
   validate :valid_booking_dates
 
   def valid_booking_dates
-    if start_date >= end_date
-      errors.add(:base, "Start date must be before end date")
-    end
+    return unless start_date >= end_date
+
+    errors.add(:base, 'Start date must be before end date')
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_23_130534) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_24_073630) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -56,6 +56,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_23_130534) do
     t.string "model"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price"
+    t.string "fuel_type"
+    t.integer "seating_capacity"
     t.index ["user_id"], name: "index_cars_on_user_id"
   end
 
