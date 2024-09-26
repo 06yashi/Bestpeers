@@ -9,5 +9,3 @@
 #   end
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-Car.create!(name: "Tesla Model S", model: "S", year: 2023, price: 79999)
-Car.create!(name: "Ford Mustang", model: "GT", year: 2022, price: 55999)
