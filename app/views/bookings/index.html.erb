@@ -1,22 +1,11 @@
-<h1>Your Bookings</h1>
+<%= form_with(model: @booking, url: bookings_path, local: true) do |form| %>
+  <%= form.hidden_field :car_id, value: @car.id %> 
+  
+  <%= form.label :start_date %>
+  <%= form.date_select :start_date %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Car</th>
-      <th>Start Date</th>
-      <th>End Date</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @bookings.each do |booking| %>
-      <tr>
-        <td><%= booking.car.title %></td>
-        <td><%= booking.start_date %></td>
-        <td><%= booking.end_date %></td>
-        <td><%= booking.status || "Pending" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <%= form.label :end_date %>
+  <%= form.date_select :end_date %>
+
+  <%= form.submit 'Book Now' %>
+<% end %>

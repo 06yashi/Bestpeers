@@ -7,25 +7,17 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
+    <%= stylesheet_link_tag 'devise', media: 'all' %>
+     <%= stylesheet_link_tag 'cars', media: 'all' %>
+
     <%= javascript_importmap_tags %>
   </head>
 
   <body> 
         <nav class="navbar">
-        <div class="navbar-brand">MyApp</div>
-        <ul class="navbar-menu"> 
-            <%if user_signed_in?%> 
-              <li class="navbar-item"><%= link_to 'Edit User', edit_user_registration_path %></li>
-              <li><%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" } %></li>
-
-            <%else%>
-              <li class="navbar-item"><%= link_to 'Login', new_user_session_path%></li>
-              <li class="navbar-item"><%= link_to 'Sign Up', new_user_registration_path%></li>
-            <% end %>
-            
-        </ul>
     </nav>
-
+  
     <%= yield %>
   </body>
 </html>
