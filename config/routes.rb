@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get 'home/index'
 
   get 'up' => 'rails/health#show', as: :rails_health_check
-  root 'home#index'
+  # root 'home#index'
+
+   root 'cars#index'
 
   resources :cars
   resources :bookings
