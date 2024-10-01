@@ -9,21 +9,21 @@ class BookingsController < ApplicationController
     @cars = Car.all
     @booking.user = current_user
   
-    # Create a Stripe customer if it doesn't exist
+  
     if current_user.stripe_customer_id.nil?
       customer = Stripe::Customer.create(email: current_user.email)
       current_user.update(stripe_customer_id: customer.id)
     end
   
     if @booking.save
+      UserMailer.booking_notification(current_user).deliver_now 
       amount_in_cents = (@booking.total_price * 100).to_i
     
-      # Add Stripe token here
-      token = params[:stripeToken] # New line to get the Stripe token
+      token = params[:stripeToken] 
   
       begin
         charge = Stripe::Charge.create(
-          source: token,  # Use token instead of customer ID for card payment
+          source: token,  
           amount: amount_in_cents,
           description: "Payment for Booking ID: #{@booking.id}",
           currency: 'usd'
