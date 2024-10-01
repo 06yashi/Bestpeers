@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         attr_accessor :stripe_customer_id
   
   has_many :cars, dependent: :destroy
   def self.ransackable_associations(_auth_object = nil)

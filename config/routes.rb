@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
   resources :cars
   resources :bookings
+  # resources :bookings
+  # resources :checkouts, only: [:new, :create]
 end
