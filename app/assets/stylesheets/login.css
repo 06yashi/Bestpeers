@@ -1,0 +1,84 @@
+@charset "utf-8";
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+body {
+  background: #b6c8d4; /* Dark background color */
+  color: #606468; /* Text color */
+  font: 87.5%/1.5em 'Open Sans', sans-serif; /* Font settings */
+  margin: 0; /* Remove default margin */
+}
+
+input {
+  border: none; /* Remove border from input fields */
+  font-family: 'Open Sans', Arial, sans-serif; /* Font for input fields */
+  font-size: 16px; /* Font size */
+  line-height: 1.5em; /* Line height */
+  padding: 0; /* Remove padding */
+  -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+}
+
+p {
+  line-height: 1.5em; /* Line height for paragraphs */
+}
+
+after {
+  clear: both; /* Clear floats */
+}
+
+#login {
+  margin: 50px auto; /* Center the login form */
+  width: 320px; /* Set width of login form */
+}
+
+#login form {
+  margin: auto; /* Center form elements */
+  padding: 22px; /* Padding inside the form */
+  width: 100%; /* Full width */
+  border-radius: 5px; /* Rounded corners */
+  background: #282e33; /* Background color of form */
+  border-top: 3px solid #434a52; /* Top border */
+  border-bottom: 3px solid #434a52; /* Bottom border */
+}
+
+#login form span {
+  background-color: #363b41; /* Background for icons */
+  border-radius: 3px 0 0 3px; /* Rounded left corners */
+  border-right: 3px solid #434a52; /* Right border */
+  color: #606468; /* Icon color */
+  display: block; /* Block display for span */
+  float: left; /* Float left */
+  line-height: 50px; /* Height for icon span */
+  text-align: center; /* Center align icon */
+  width: 50px; /* Width of icon span */
+  height: 50px; /* Height of icon span */
+}
+
+#login form input[type="text"],
+#login form input[type="password"] {
+  background-color: #3b4148; /* Background color for input fields */
+  border-radius: 0 3px 3px 0; /* Rounded right corners */
+  color: #a9a9a9; /* Text color for input fields */
+  margin-bottom: 1em; /* Space below input fields */
+  padding: 0 16px; /* Padding inside input fields */
+  width: 235px; /* Width of input fields */
+  height: 50px; /* Height of input fields */
+}
+
+#login form input[type="submit"] {
+  background: #b5cd60; /* Background color for submit button */
+  border: 0; /* Remove border */
+  width: 100%; /* Full width for button */
+  height: 40px; /* Height of button */
+  border-radius: 3px; /* Rounded corners */
+  color: white; /* Text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background 0.3s ease-in-out; /* Smooth background transition */
+}
+
+#login form input[type="submit"]:hover {
+  background: #16aa56; /* Background color on hover */
+}

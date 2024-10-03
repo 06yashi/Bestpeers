@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  before_action :authenticate_user!
+  
   def new
     @booking = Booking.new
     @cars = Car.all
@@ -40,7 +42,11 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
-    puts 'booking sucessful'
+  end
+
+  def index
+    @bookings = current_user.bookings
+      
   end
 
   private
