@@ -3,6 +3,7 @@ class Booking < ApplicationRecord
   belongs_to :car
 
   validates :start_date, :end_date, presence: true
+  # validates :total_price, presence: true
   # validate :car_must_be_available
 
   before_save :set_status_and_calculate_price

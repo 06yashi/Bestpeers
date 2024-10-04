@@ -1,33 +1,57 @@
-<h1>Booking Details</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Invoice</title>
+  <%= stylesheet_link_tag 'bookings' %> 
+  </head>
+<body>
+  <div class="invoice-container">
+    <div class="invoice-header">
+      <h1>Booking Invoice</h1>
+      <p>Thank you for your booking!</p>
+    </div>
 
-<p>
-  <strong>Car ID:</strong>
-  <%= @booking.car_id %>
-</p>
+    <div class="invoice-info">
+      <p><strong>Car Name:</strong> <%= @booking.car.name %></p>
+      <p><strong>Car ID:</strong> <%= @booking.car.id %></p>
+      <p><strong>Booking ID:</strong> <%= @booking.id %></p>
+      <p><strong>Customer Name:</strong> <%= @booking.user.id %></p> 
+      <p><strong>Email:</strong> <%= @booking.user.email %></p>
+      <p><strong>Booking Date:</strong> <%= @booking.created_at.strftime('%d %B %Y') %></p>
+      <p><strong>Start Date:</strong> <%= @booking.start_date.strftime('%d %B %Y') %></p>
+      <p><strong>End Date:</strong> <%= @booking.end_date.strftime('%d %B %Y') %></p>
+    </div>
 
-<p>
-  <strong>Start Date:</strong>
-  <%= @booking.start_date %>
-</p>
+    <div class="invoice-details">
+      <h3>Pricing Details</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>Total Days</td>
+            <td><%= (@booking.end_date - @booking.start_date).to_i %> days</td>
+          </tr>
+          <tr>
+          
+          <tr>
+            <td><strong>Total Price</strong></td>
+            <td><strong><%= number_to_currency(@booking.total_price) %></strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<p>
-  <strong>End Date:</strong>
-  <%= @booking.end_date %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @booking.status %>
-</p>
-
-
-<p>
-  <strong>Total Price:</strong>
-  <%= number_to_currency(@booking.total_price) %>
-</p>
-
-
-
-
-<%= link_to 'Edit Booking', edit_booking_path(@booking) %> |
-<%= link_to 'Back to Bookings', bookings_path %>
+    <div class="invoice-footer">
+      <p>If you have any queries regarding your booking, feel free to contact us at support@zoomcar.com</p>
+    </div>
+  </div>
+</body>
+</html>
