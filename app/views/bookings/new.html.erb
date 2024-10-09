@@ -3,7 +3,6 @@
 
 
 
-
 <div class="booking-form-container">
   <%= form_with(model: @booking, local: true, id: 'payment-form') do |form| %>
     
@@ -25,6 +24,13 @@
     <div id="card-errors" role="alert"></div>
   <% end %>
 </div>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
+
+
+  
 
 
 <script src="https://js.stripe.com/v3/"></script>

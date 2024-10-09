@@ -18,8 +18,9 @@ class BookingsController < ApplicationController
     end
   
     if @booking.save
+      flash[:notice] = "Booking successfully created!"
       UserMailer.booking_notification(current_user).deliver_now 
-      amount_in_cents = (@booking.total_price * 100).to_i
+      amount_in_cents = (@booking.total_price * 80).to_i
     
       token = params[:stripeToken] 
   
@@ -36,6 +37,7 @@ class BookingsController < ApplicationController
         render :new
       end
     else
+      flash[:alert] = "There was an error in creating your booking."
       render :new
     end
   end

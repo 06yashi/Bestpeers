@@ -59,4 +59,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  protected
+
+  def after_sign_up_path_for(resource)
+    flash[:notice] = "You have successfully signed up!"
+    super(resource)  # Redirect to default path after sign-up
+  end
 end

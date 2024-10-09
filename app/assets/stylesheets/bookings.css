@@ -5,95 +5,80 @@ body {
   padding: 0;
 }
 
-.invoice-container {
-  width: 70%;
-  margin: 50px auto;
-  background-color: white;
+.navbar {
+  background-color: #007bff;
+  padding: 10px;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 30px; /* Navbar ke neeche gap badhane ke liye margin-bottom add kiya */
+}
+
+/* Booking Form Container */
+.booking-form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 50px auto 0; /* Isse booking form ko navbar se door rakhenge */
+  background-color: #fff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.invoice-header {
-  text-align: center;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.invoice-header h1 {
-  font-size: 24px;
+.form-group label {
+  display: block;
   margin-bottom: 5px;
 }
 
-.invoice-header p {
-  font-size: 14px;
-  color: #666;
-}
-
-.invoice-info p {
-  margin: 8px 0;
-  font-size: 16px;
-}
-
-.invoice-info strong {
-  color: #333;
-}
-
-.invoice-details h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.invoice-details table {
+.form-control {
   width: 100%;
-  border-collapse: collapse;
-}
-
-.invoice-details table th,
-.invoice-details table td {
   padding: 10px;
-  text-align: left;
   border: 1px solid #ddd;
-}
-
-.invoice-details table th {
-  background-color: #f5f5f5;
-}
-
-.invoice-footer {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 14px;
-  color: #666;
-}
-
-.booking-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.booking-table th, .booking-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.booking-table th {
-  background-color: #f2f2f2;
-}
-
-.book-now .btn {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
   border-radius: 5px;
 }
 
-.book-now .btn:hover {
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-select {
+  width: 48%;
+}
+
+#card-element {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
   background-color: #0056b3;
 }
 
+.alert {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
 
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
 
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}

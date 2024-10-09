@@ -1,15 +1,13 @@
-
-
 <div class="container">
   <div class="car-listing">
     <% @cars.each do |car| %>
       <div class="car-item">
+      <h1><%= car.name %></h1>
         <h2><%= car.model %></h2>
         <p>Price: <%= car.price %></p>
         <p>Fuel Type: <%= car.fuel_type %></p>
-        <p>Seating Capacity: <%= car.seating_capacity %></p>
-
-          <%= link_to 'Book Now', new_booking_path(car_id: car.id), class: 'btn btn-primary' %>
+        <p>Seating Capacity: <%= car.seating_capacity %></p> 
+        <%= link_to 'Book Now', new_booking_path(car_id: car.id), class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>
