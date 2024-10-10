@@ -7,7 +7,8 @@ class Car < ApplicationRecord
   validates :name, :model, :price, :fuel_type, :seating_capacity, presence: true
 
   validate :price_must_be_positive
-
+  
+  has_one_attached :photo
   private
 
   def price_must_be_positive

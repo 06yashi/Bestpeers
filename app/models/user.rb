@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :cars, dependent: :destroy
 
   def self.ransackable_associations(_auth_object = nil)
-    ['cars', 'bookings']  # Add 'bookings' here
+    ['cars', 'bookings']  
   end
 
   def self.ransackable_attributes(_auth_object = nil)

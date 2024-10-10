@@ -1,6 +1,6 @@
 ActiveAdmin.register Car do
   
-  permit_params :name, :model, :price, :fuel_type, :seating_capacity  # Ensure all relevant fields are included
+  permit_params :name, :model, :price, :fuel_type, :seating_capacity, :photo # Ensure all relevant fields are included
 
   
   index do
@@ -11,6 +11,7 @@ ActiveAdmin.register Car do
     column :price
     column :fuel_type
     column :seating_capacity
+    column :photo
     actions
   end
 
@@ -21,6 +22,7 @@ ActiveAdmin.register Car do
       f.input :price
       f.input :fuel_type
       f.input :seating_capacity
+      f.input :photo, as: :file
     end
     f.actions
   end
