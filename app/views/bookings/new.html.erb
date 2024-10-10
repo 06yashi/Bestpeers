@@ -1,8 +1,4 @@
 
-
-
-
-
 <div class="booking-form-container">
   <%= form_with(model: @booking, local: true, id: 'payment-form') do |form| %>
     
@@ -35,7 +31,7 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-  var stripe = Stripe('pk_test_51Q3bPDLbFx0KuzUZvg45GbWWJHdBQAFSChdXq9sVPJVZ5Swd6HxtgEJEmBdpTTRulgDqbhp9bpKuV3XmQGH0PFLW00F0Lr0ma2'); // Replace with your Stripe public key
+  var stripe = Stripe('<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>');
   var elements = stripe.elements();
 
   var cardElement = elements.create('card');

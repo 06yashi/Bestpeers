@@ -60,6 +60,8 @@ Rails.application.configure do
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
   config.action_mailer.delivery_method = :letter_opener
+  ENV['STRIPE_PUBLISHABLE_KEY'] = 'pk_test_51Q3bPDLbFx0KuzUZvg45GbWWJHdBQAFSChdXq9sVPJVZ5Swd6HxtgEJEmBdpTTRulgDqbhp9bpKuV3XmQGH0PFLW00F0Lr0ma2'
+
 
   # Suppress logger output for asset requests.
 
