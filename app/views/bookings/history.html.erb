@@ -4,12 +4,20 @@
   <ul>
     <% @bookings.each do |booking| %>
       <li>
-        Booking ID: <%= booking.id %>, Car: <%= booking.car.name %>, 
-        Start Date: <%= booking.start_date %>, End Date: <%= booking.end_date %>, 
+        Booking ID: <%= booking.id %>
+        <br>
+        Car Name: <%= @booking.car.name %>  <!-- This should show the car's name -->
+        <br>
+        Car ID: <%= booking.car_id %>  <!-- Debugging step: check if car_id is correct -->
+        <br>
+        Start Date: <%= booking.start_date.strftime("%B %d, %Y") %>
+        <br>
+        End Date: <%= booking.end_date.strftime("%B %d, %Y") %>
+        <br>
         Total Price: <%= number_to_currency(booking.total_price) %>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>You have no bookings yet.</p>
+  <p>No bookings found.</p>
 <% end %>

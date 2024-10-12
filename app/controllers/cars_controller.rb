@@ -2,13 +2,8 @@ class CarsController < ApplicationController
   before_action :authenticate_user!
   def index
     @cars = Car.all
-
-    if params[:model].present?
-      @cars = @cars.where('model ILIKE ?', "%#{params[:model]}%")
-    end
-
-    if params[:fuel_type].present?
-      @cars = @cars.where(fuel_type: params[:fuel_type])
+    if params[:query].present?
+      @cars = Car.where("name ILIKE ?", "%#{params[:query]}%")
     end
   end
 
@@ -28,6 +23,28 @@ class CarsController < ApplicationController
       render :new
     end
   end
+
+  def search
+    if params[:query].present?
+      query = params[:query].strip.downcase 
+      query_numeric = query.to_i 
+      price_numeric = query.to_f 
+  
+      Rails.logger.debug "Search Query: #{query}"
+  
+     
+      @cars = Car.where(
+        "LOWER(name) LIKE ? OR LOWER(fuel_type) LIKE ? OR seating_capacity = ? OR price = ?", 
+        "%#{query}%", "%#{query}%", query_numeric, price_numeric
+      )
+    else
+      @cars = Car.all 
+    end
+  
+    render :index 
+  end
+  
+  
 
   private
 
