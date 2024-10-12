@@ -8,10 +8,10 @@
    <script src="https://js.stripe.com/v3/"></script>
   <%= javascript_importmap_tags %>
      <%= stylesheet_link_tag 'bookings', media: 'all' %>
-     <!-- Add Bootstrap CSS -->
+     
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<!-- Add Bootstrap JS -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -44,6 +44,9 @@
         <li class="nav-item">
           <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
         </li>
+        <li class="nav-item">
+        <%= link_to 'Booking History', bookings_path, class: 'nav-link' %>
+      </li>
       <% else %>
        
         <li class="nav-item">
@@ -52,15 +55,23 @@
         <li class="nav-item">
           <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
         </li>
+
       <% end %>
-      <li class="nav-item">
-        <%= link_to 'Booking History', bookings_path, class: 'nav-link' %>
-      </li>
-   
+ 
       
     </ul>
   </div>
 </nav>
+<% if current_page?(root_path) %>
+  <div class="container mt-4">
+    <%= form_with url: search_cars_path, method: :get, local: true, class: "form-inline" do %>
+      <div class="form-group mx-sm-3 mb-2">
+        <%= text_field_tag :query, params[:query], placeholder: "Search for cars", class: "form-control" %>
+      </div>
+      <%= submit_tag "Search", class: "btn btn-primary mb-2 btn-lg custom-search-btn" %>
+    <% end %>
+  </div>
+<% end %>
 
 
 <%= yield %>

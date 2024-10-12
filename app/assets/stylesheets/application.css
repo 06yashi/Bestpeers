@@ -22,12 +22,12 @@
 }
 
 .nav-link {
-  color: white !important; /* Link color */
+  color: rgb(14, 10, 10) !important; /* Link color */
   transition: color 0.3s; /* Transition for hover effect */
 }
 
 .nav-link:hover {
-  color: #ffc107 !important; /* Hover color */
+  color: #504e4b !important; /* Hover color */
   text-decoration: underline; /* Underline on hover */
 }
 
@@ -41,6 +41,39 @@
 
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Custom icon color */
+}
+
+/* In custom.css */
+
+.search-input {
+  border-radius: 30px 0 0 30px; /* Rounded corners on the left */
+  border: 1px solid #28a745; /* Green border */
+  padding: 10px 15px; /* Padding for input */
+  font-size: 16px; /* Font size */
+  transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+.search-input:focus {
+  border-color: #218838; /* Darker green border on focus */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Add shadow on focus */
+  outline: none; /* Remove default outline */
+}
+
+.custom-search-btn {
+  background-color: #28a745; /* Custom green color */
+  border: none; /* Remove border */
+  color: rgb(28, 141, 194); /* White text */
+  padding: 10px 20px; /* Add padding */
+  font-size: 16px; /* Font size */
+  border-radius: 0 30px 30px 0; /* Rounded corners on the right */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.custom-search-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* More shadow on hover */
+  transform: translateY(-2px); /* Slight movement on hover */
 }
 
   

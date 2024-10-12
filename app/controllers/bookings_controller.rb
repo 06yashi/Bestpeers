@@ -47,7 +47,7 @@ class BookingsController < ApplicationController
   end
 
   def index
-    @bookings = current_user.bookings
+    @bookings = Booking.includes(:car).where(user: current_user)
       
   end
 
