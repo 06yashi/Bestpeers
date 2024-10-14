@@ -6,15 +6,17 @@
       <li>
         Booking ID: <%= booking.id %>
         <br>
-        Car Name: <%= @booking.car.name %>  <!-- This should show the car's name -->
+        Car Name: <%= @booking.car.name %>  
         <br>
-        Car ID: <%= booking.car_id %>  <!-- Debugging step: check if car_id is correct -->
+        Car ID: <%= booking.car_id %>  
         <br>
         Start Date: <%= booking.start_date.strftime("%B %d, %Y") %>
         <br>
         End Date: <%= booking.end_date.strftime("%B %d, %Y") %>
         <br>
         Total Price: <%= number_to_currency(booking.total_price) %>
+        <br>
+        <%= link_to 'Delete', booking_path(booking), method: :delete, data: { confirm: 'Are you sure you want to delete this booking?' } %>
       </li>
     <% end %>
   </ul>

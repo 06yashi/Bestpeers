@@ -61,6 +61,11 @@ Rails.application.configure do
   config.active_job.verbose_enqueue_logs = true
   config.action_mailer.delivery_method = :letter_opener
   ENV['STRIPE_PUBLISHABLE_KEY'] = 'pk_test_51Q3bPDLbFx0KuzUZvg45GbWWJHdBQAFSChdXq9sVPJVZ5Swd6HxtgEJEmBdpTTRulgDqbhp9bpKuV3XmQGH0PFLW00F0Lr0ma2'
+  
+
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 
   # Suppress logger output for asset requests.
@@ -81,9 +86,9 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
-    domain: 'gmail.com',
+    domain:  'localhost.com',
     user_name: 'shrivastavayanshi23@gmail.com',
-    password: 'Yashika@2306',
+    password: 'zrsh dlkl rgha oqqus',
     authentication: 'plain',
     enable_starttls_auto: true
   }

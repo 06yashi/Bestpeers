@@ -14,8 +14,10 @@ Rails.application.routes.draw do
    root 'cars#index'
    get 'search_cars', to: 'cars#search', as: 'search_cars'
 
-   resources :cars, only: [:index]
-  resources :bookings
+ resources :cars, only: [:index]
+   resources :bookings
+  
+  
   # resources :bookings
   # resources :checkouts, only: [:new, :create]
 end

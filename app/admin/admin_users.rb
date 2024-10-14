@@ -1,9 +1,9 @@
 ActiveAdmin.register User do
   permit_params :email, :password, :password_confirmation
 
-  # Filter by booking status or any specific field in bookings
-  filter :bookings_status, as: :select, collection: Booking.pluck(:status).uniq, label: 'Booking Status'
-  # Add other filters as needed
+ 
+  # filter :bookings_status, as: :select, collection: Booking.pluck(:status).uniq, label: 'Booking Status'
+
 
   index do
     selectable_column
