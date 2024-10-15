@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Car, type: :model do
-  let(:user) { User.create(email: 'user@example.com', password: 'password', password_confirmation: 'password') }
-  let(:car) { Car.new(name: 'Tesla Model S', model: '2021', price: 79999, fuel_type: 'electric', seating_capacity: 5, user: user) }
+  let(:user) { create(:user) }
+  let(:car) { build(:car, user: user) }
 
   context 'validations' do
     it 'is valid with valid attributes' do

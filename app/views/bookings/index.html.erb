@@ -12,16 +12,14 @@
     <% if @bookings.any? %>
       <% @bookings.each do |booking| %>
         <tr>
-          <!-- Display Car Name instead of Car ID -->
           <td><%= booking.car.name %> (<%= booking.car.model %>)</td>
           
-          <!-- Start Date -->
           <td><%= booking.start_date.strftime("%B %d, %Y") %></td>
           
-          <!-- End Date -->
+        
           <td><%= booking.end_date.strftime("%B %d, %Y") %></td>
           
-          <!-- Booking Status -->
+         
           <td>
             <% if booking.start_date > Date.today %>
               Upcoming

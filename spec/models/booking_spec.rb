@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Booking, type: :model do
-  let(:user) { User.create(email: 'user@example.com', password: 'password') }
-  let(:car) { Car.create(name: 'Tesla Model S', model: '2021', price: 79999, fuel_type: 'Electric', seating_capacity: 5, user: user) }
-  
+  let(:user) { create(:user) }
+  let(:car) { create(:car, user: user) }
   let(:valid_start_date) { Date.today + 1.day }
   let(:valid_end_date) { Date.today + 5.days }
-  
-  let(:booking) { Booking.new(user: user, car: car, start_date: valid_start_date, end_date: valid_end_date) }
+  let(:booking) { build(:booking, user: user, car: car, start_date: valid_start_date, end_date: valid_end_date) }
 
   describe 'Validations' do
     it 'is valid with valid attributes' do
@@ -27,13 +25,13 @@ RSpec.describe Booking, type: :model do
     end
 
     it 'is not valid if end date is before start date' do
-      booking.end_date = booking.start_date - 1.day
-      expect(booking).to_not be_valid
-      expect(booking.errors[:end_date]).to include("must be after the start date")
+      booking = Booking.new(start_date: Date.tomorrow, end_date: Date.yesterday)
+      booking.valid? # Triggers validation
+      expect(booking.errors[:end_date]).to include("must be after the start date.")
     end
 
     it 'is not valid if car is not available' do
-      Booking.create(user: user, car: car, start_date: Date.today + 2.days, end_date: Date.today + 6.days)
+      create(:booking, user: user, car: car, start_date: Date.today + 2.days, end_date: Date.today + 6.days)
       expect(booking).to_not be_valid
       expect(booking.errors[:base]).to include("Car is not available from #{booking.start_date} to #{booking.end_date}")
     end

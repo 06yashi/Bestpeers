@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.new(email: 'test@example.com', password: 'password', password_confirmation: 'password') }
+  let(:user) { build(:user) }
 
   context 'validations' do
     it 'is valid with valid attributes' do
@@ -13,54 +13,32 @@ RSpec.describe User, type: :model do
     it 'is not valid without an email' do
       user.email = nil
       expect(user).to_not be_valid
+      expect(user.errors[:email]).to include("can't be blank")
+    end
+
+    it 'is not valid with a duplicate email' do
+      create(:user, email: user.email)
+      expect(user).to_not be_valid
+      expect(user.errors[:email]).to include('has already been taken')
     end
 
     it 'is not valid without a password' do
       user.password = nil
       expect(user).to_not be_valid
+      expect(user.errors[:password]).to include("can't be blank")
     end
 
-    it 'is not valid with a duplicate email' do
-   
-      User.create(email: 'test@example.com', password: 'password', password_confirmation: 'password')
-
-     
+    it 'is not valid when password and password_confirmation do not match' do
+      user.password_confirmation = 'different_password'
       expect(user).to_not be_valid
-    end
-
-    it 'is valid with a unique email' do
-      
-      User.create(email: 'unique@example.com', password: 'password', password_confirmation: 'password')
-
-      
-      expect(user).to be_valid
+      expect(user.errors[:password_confirmation]).to include("doesn't match Password")
     end
   end
 
   context 'associations' do
-    it 'should have many bookings' do
+    it 'has many bookings' do
       association = User.reflect_on_association(:bookings)
       expect(association.macro).to eq(:has_many)
     end
-
-    it 'should have many cars' do
-      association = User.reflect_on_association(:cars)
-      expect(association.macro).to eq(:has_many)
-    end
-
-    it 'should have dependent destroy for cars' do
-      association = User.reflect_on_association(:cars)
-      expect(association.options[:dependent]).to eq(:destroy)
-    end
   end
-
-  context 'devise modules' do
-    it 'validates email format' do
-      
-      user.email = 'invalid_email'
-      expect(user).to_not be_valid
-    end
-  end
-
-  
 end

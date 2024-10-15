@@ -17,6 +17,11 @@ group :test do
   gem 'rspec-rails'
 end
 
+group :development, :test do
+  gem 'faker'
+end
+
+
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 1.4"
@@ -48,6 +53,13 @@ gem "jbuilder"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data"
 
+group :development, :test do
+  gem 'factory_bot_rails'
+end
+
+gem 'rails-controller-testing'
+
+
 
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -65,6 +77,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
+  gem 'letter_opener', group: :development
+
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -77,7 +92,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-gem "letter_opener", :group => :development
+
 gem 'sendgrid-ruby'
 
 

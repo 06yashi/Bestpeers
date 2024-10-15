@@ -22,7 +22,7 @@ class BookingsController < ApplicationController
     end
  
     if @booking.save
-      UserMailer.booking_notification(current_user).deliver_now  # Pass the User object here
+      UserMailer.booking_notification(current_user).deliver_now 
       flash[:notice] = "Booking successfully created!"
   
      

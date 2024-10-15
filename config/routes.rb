@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
  resources :cars, only: [:index]
    resources :bookings
-  
+   resources :cars
   
   # resources :bookings
   # resources :checkouts, only: [:new, :create]

@@ -1,8 +1,6 @@
 class Car < ApplicationRecord
   belongs_to :user, optional: true
   has_many :bookings
-
- 
   enum fuel_type: { petrol: 'petrol', diesel: 'diesel', electric: 'electric' }
   validates :name, :model, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }

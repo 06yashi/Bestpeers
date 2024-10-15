@@ -49,7 +49,6 @@ class CarsController < ApplicationController
   private
 
   def car_params
-    debugger
     params.require(:car).permit(:title, :description, :price, :available, :photo)
   end
 end
