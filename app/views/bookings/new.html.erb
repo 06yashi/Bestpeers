@@ -1,15 +1,23 @@
-<% if flash[:alert] %>
-  <div class="alert alert-danger"><%= flash[:alert] %></div>
-<% end %>
+
+
 
 
 
 <div class="booking-form-container">
+  <% if @booking.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form_with(model: @booking, local: true, id: 'payment-form') do |form| %>
 
     <div class="form-group">
       <%= form.label :car_id, "Select a Car", class: "form-label" %>
-      <!-- Set the selected car based on the params[:car_id], or leave it blank if not selected -->
       <%= form.select :car_id, @cars.collect { |car| ["#{car.model} (#{car.name})", car.id] }, { include_blank: 'Choose a car', selected: params[:car_id] }, class: "form-control" %>
     </div>
 

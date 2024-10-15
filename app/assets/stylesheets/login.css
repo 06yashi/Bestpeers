@@ -29,18 +29,18 @@ after {
 }
 
 #login {
-  margin: 50px auto; /* Center the login form */
-  width: 320px; /* Set width of login form */
+  margin: 50px auto; 
+  width: 320px; 
 }
 
 #login form {
-  margin: auto; /* Center form elements */
-  padding: 22px; /* Padding inside the form */
-  width: 100%; /* Full width */
-  border-radius: 5px; /* Rounded corners */
-  background: #282e33; /* Background color of form */
-  border-top: 3px solid #434a52; /* Top border */
-  border-bottom: 3px solid #434a52; /* Bottom border */
+  margin: auto; 
+  padding: 22px; 
+  width: 100%; 
+  border-radius: 5px; 
+  background: #282e33; 
+  border-top: 3px solid #434a52; 
+  border-bottom: 3px solid #434a52; 
 }
 
 #login form span {

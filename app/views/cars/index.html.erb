@@ -13,7 +13,6 @@
           <h2><%= car.name %> <%= car.model %></h2>
           <p>Seating Capacity: <%= car.seating_capacity %>  Fuel: <%= car.fuel_type %></p>
           <p>Price: <%= car.price %></p>
-          <!-- Pass the car_id in the URL when "Book Now" is clicked -->
           <%= link_to 'Book Now', new_booking_path(car_id: car.id), class: 'btn btn-primary' %>
         </div>
       <% end %>
