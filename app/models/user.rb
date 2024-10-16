@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :bookings
+  has_many :transactions, dependent: :destroy
+  
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

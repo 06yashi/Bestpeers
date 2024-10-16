@@ -4,7 +4,6 @@ class Booking < ApplicationRecord
 
   validates :start_date, :end_date, presence: true
   validate :start_date_must_be_before_end_date
-  validate :car_must_be_available
   before_save :set_status_and_calculate_price
   
 
@@ -26,11 +25,11 @@ class Booking < ApplicationRecord
       self.total_price = nil
     end
   end
-  def car_must_be_available
-    if car.present? && car.bookings.where('start_date < ? AND end_date > ?', end_date, start_date).exists?
-      errors.add(:base, "Car is not available from #{start_date} to #{end_date}")
-    end
-  end
+  # def car_must_be_available
+  #   if car.present? && car.bookings.where('start_date < ? AND end_date > ?', end_date, start_date).exists?
+  #     errors.add(:base, "Car is not available from #{start_date} to #{end_date}")
+  #   end
+  # end
 
   def start_date_must_be_before_end_date
     return unless start_date.present? && end_date.present?
