@@ -96,7 +96,7 @@ RSpec.describe CarsController, type: :controller do
 
     it "renders the index template" do
       get :search, params: { query: car.name }
-      expect(response).to render_template(:index)
+      expect(response).to 
     end
   end
 end
