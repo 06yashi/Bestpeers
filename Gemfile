@@ -57,7 +57,9 @@ group :development, :test do
   gem 'factory_bot_rails'
 end
 
-gem 'rails-controller-testing'
+group :test do
+  gem 'rails-controller-testing'
+end
 
 
 
@@ -71,6 +73,7 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ ruby jruby ]
+  gem 'byebug'
 end
 
 group :development do
