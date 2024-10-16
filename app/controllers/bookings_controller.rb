@@ -12,7 +12,7 @@ class BookingsController < ApplicationController
     @cars = Car.all
     @booking.user = current_user
     
-    # Check and create Stripe customer if not already exists
+
     if current_user.stripe_customer_id.nil?
       if current_user.email.present? && current_user.email.match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)
         begin
@@ -30,22 +30,20 @@ class BookingsController < ApplicationController
         end
       else
         flash[:alert] = "Your email address is invalid or missing. Please update your profile."
-        Rails.logger.warn "User email invalid or missing for customer creation."
         render :edit_profile and return
       end
     end
   
-    # Proceed with booking creation
+ 
     if @booking.save
       UserMailer.booking_notification(current_user).deliver_now
       flash[:notice] = "Booking successfully created!"
   
-      # Process payment if total price exists
+    
       if @booking.total_price.present?
         amount_in_cents = (@booking.total_price * 100).to_i
         token = params[:stripeToken]
   
-        # Check for missing Stripe token
         if token.blank?
           flash.now[:alert] = "Stripe token is missing. Please try again."
           render :new and return
@@ -60,7 +58,7 @@ class BookingsController < ApplicationController
           )
           Rails.logger.info "Stripe charge created: #{charge.inspect}"
   
-          # Check if charge was successful
+          
           if charge.id.present?
             @booking.update!(stripe_charge_id: charge.id)
             Transaction.create!(

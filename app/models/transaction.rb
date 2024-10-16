@@ -1,9 +1,4 @@
 class Transaction < ApplicationRecord
   belongs_to :user
-
-  # Optional: Validations
-  validates :stripe_charge_id, presence: true
-  validates :amount, presence: true
-  validates :currency, presence: true
-  validates :status, presence: true
+  validates :stripe_charge_id, :amount, :currency, :status, presence: true
 end
