@@ -10,10 +10,12 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    @booking.user_id = current_user.id # Assuming you're using Devise for user authentication
+    @booking.user_id = current_user.id 
+    # Assuming you're using Devise for user authentication
     @booking.status = "pending" # Default status before payment
 
     if @booking.save
+    
       if @booking.total_price.present?
         amount_in_cents = (@booking.total_price * 100).to_i
        
@@ -22,7 +24,7 @@ class BookingsController < ApplicationController
           payment_method_types: ['card'],
           line_items: [{
             price_data: {
-              currency: 'usd', # Aap apni required currency yahan specify kar sakte hain
+              currency: 'inr', # Aap apni required currency yahan specify kar sakte hain
               product_data: {
                 name: 'Car Booking',
                 description: "Booking for Car ID: #{@booking.car_id}",
@@ -36,6 +38,7 @@ class BookingsController < ApplicationController
           cancel_url: checkout_cancel_url(booking_id: @booking.id),
         })
         # Redirect to Stripe checkout page
+        @booking.update(stripe_charge_id: session.id)
         redirect_to session.url, allow_other_host: true
       end
     else
