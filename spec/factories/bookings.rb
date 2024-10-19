@@ -11,5 +11,5 @@ FactoryBot.define do
         booking.total_price = days * booking.car.price
       end
     end
-  end
+end
   

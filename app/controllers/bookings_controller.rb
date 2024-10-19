@@ -1,3 +1,4 @@
+
 class BookingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_booking, only: [:destroy]
@@ -9,88 +10,36 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(booking_params)
-    @cars = Car.all
-    @booking.user = current_user
-    
+    @booking.user_id = current_user.id # Assuming you're using Devise for user authentication
+    @booking.status = "pending" # Default status before payment
 
-    if current_user.stripe_customer_id.nil?
-      if current_user.email.present? && current_user.email.match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)
-        begin
-          customer = Stripe::Customer.create(email: current_user.email)
-          current_user.update!(stripe_customer_id: customer.id)
-          Rails.logger.info "Stripe customer created successfully: #{customer.id}"
-        rescue Stripe::InvalidRequestError => e
-          flash[:alert] = "Failed to create Stripe customer: #{e.message}"
-          Rails.logger.error "Stripe customer creation failed: #{e.message}"
-          render :new and return
-        rescue StandardError => e
-          flash[:alert] = "Unexpected error occurred while creating Stripe customer."
-          Rails.logger.error "Error: #{e.message}"
-          render :new and return
-        end
-      else
-        flash[:alert] = "Your email address is invalid or missing. Please update your profile."
-        render :edit_profile and return
-      end
-    end
-  
- 
     if @booking.save
-      UserMailer.booking_notification(current_user).deliver_now
-      flash[:notice] = "Booking successfully created!"
-  
-    
       if @booking.total_price.present?
         amount_in_cents = (@booking.total_price * 100).to_i
-        token = params[:stripeToken]
-  
-        if token.blank?
-          flash.now[:alert] = "Stripe token is missing. Please try again."
-          render :new and return
-        end
-  
-        begin
-          charge = Stripe::Charge.create(
-            source: token,
-            amount: amount_in_cents,
-            description: "Payment for Booking ID: #{@booking.id}",
-            currency: 'usd'
-          )
-          Rails.logger.info "Stripe charge created: #{charge.inspect}"
-  
-          
-          if charge.id.present?
-            @booking.update!(stripe_charge_id: charge.id)
-            Transaction.create!(
-              user: current_user,
-              stripe_charge_id: charge.id,
-              amount: amount_in_cents,
-              currency: 'usd',
-              status: charge.status
-            )
-            redirect_to @booking, notice: 'Booking was successfully created and payment processed.'
-          else
-            flash.now[:alert] = "Payment processing failed. Please try again."
-            Rails.logger.error "Payment processing failed for Booking ID: #{@booking.id}"
-            render :new
-          end
-        rescue Stripe::CardError => e
-          flash[:error] = e.message
-          Rails.logger.error "Stripe card error: #{e.message}"
-          render :new
-        rescue StandardError => e
-          flash[:alert] = "Unexpected error occurred during payment processing."
-          Rails.logger.error "Payment error: #{e.message}"
-          render :new
-        end
-      else
-        # If no payment is required, simply redirect to the booking
-        redirect_to @booking, notice: 'Booking was successfully created!'
+       
+        # Create Stripe checkout session
+        session = Stripe::Checkout::Session.create({
+          payment_method_types: ['card'],
+          line_items: [{
+            price_data: {
+              currency: 'usd', # Aap apni required currency yahan specify kar sakte hain
+              product_data: {
+                name: 'Car Booking',
+                description: "Booking for Car ID: #{@booking.car_id}",
+              },
+              unit_amount: amount_in_cents # Stripe expects amount in cents
+            },
+            quantity: 1,
+          }],
+          mode: 'payment',
+          success_url: checkout_success_url(booking_id: @booking.id),
+          cancel_url: checkout_cancel_url(booking_id: @booking.id),
+        })
+        # Redirect to Stripe checkout page
+        redirect_to session.url, allow_other_host: true
       end
     else
-      # If booking save fails, render form with errors
-      flash.now[:alert] = @booking.errors.full_messages.join(", ")
-      Rails.logger.error "Booking creation failed: #{@booking.errors.full_messages.join(", ")}"
+      flash[:alert] = "Error creating booking!"
       render :new
     end
   end
