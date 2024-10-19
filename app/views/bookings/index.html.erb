@@ -1,12 +1,12 @@
-
-<h2>Your All Bookings</h2>
 <div>
 <table class="booking-table">
   <thead>
     <tr>
+    <th>car name</th>
       <th>Start Date</th>
       <th>End Date</th>
       <th>Status</th>
+      <th>Cancel button </th>
     </tr>
   </thead>
   <tbody>
@@ -32,13 +32,10 @@
           </td>
           <td>
           <% unless booking.status == 'cancelled' %>
-            <%= button_to 'Request Refund', refund_booking_path(booking), method: :post, data: { confirm: "Are you sure you want a refund for this booking?" } %>
-
+          <%= button_to 'Cancel Booking', booking, method: :delete, class:"custom-button", data: { confirm: "Are you sure you want to cancel this booking?" } %>
           <% end %>
         </td>
-        
-        
-        </tr>
+     </tr>
       <% end %>
     <% else %>
       <tr>

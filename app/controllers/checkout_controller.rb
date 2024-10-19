@@ -1,34 +1,36 @@
 class CheckoutController < ApplicationController
   def success
-    @booking = Booking.find(params[:booking_id])
+    session_id = params[:session_id]
     
-    # Ensure payment_intent is stored in the session when creating the payment
-    payment_intent_id = session[:payment_intent] # Access payment_intent from session
-  byebug
-    if payment_intent_id
-      charge = Stripe::PaymentIntent.retrieve(payment_intent_id) # Retrieve charge details
-      byebug
-      if charge && charge.charges.data.any?
-        byebug
-        @booking.update(
-          status: "confirmed",
-          stripe_charge_id: charge.charges.data.first.id,
-          payment_intent_id: payment_intent_id
-        )
+    begin
+      # Retrieve the checkout session
+      session = Stripe::Checkout::Session.retrieve(session_id)
+      
+      # Get the PaymentIntent ID
+      payment_intent_id = session.payment_intent
+      
+      # Manually capture the payment
+      payment_intent = Stripe::PaymentIntent.capture(payment_intent_id)
+      
+      # Assuming you have a way to find the booking by session_id
+      booking = Booking.find(params[:booking_id])
+  
+      if payment_intent && booking
+        booking.update(stripe_charge_id: payment_intent.id, status: 'confirmed')
+        
+        flash[:notice] = "Payment successful and captured! Booking confirmed."
+        redirect_to bookings_path
+      else
+        flash[:alert] = "Booking not found or session is invalid."
+        redirect_to root_path
       end
-    
-    else
-      @booking.update(status: "confirmed")
-      # Send the email notification
-    UserMailer.booking_notification(current_user, @booking).deliver_now
-    flash[:notice] = 'Payment successful! Booking confirmed and email sent.'
-      # Fallback if payment intent is not available
+    rescue Stripe::InvalidRequestError => e
+      Rails.logger.error "Stripe error while capturing payment: #{e.message}"
+      flash[:alert] = "There was an error processing your payment."
+      redirect_to root_path
     end
-
-    flash[:notice] = "Payment successful! Your booking is confirmed."
-    redirect_to booking_path(@booking) # Redirect to booking show page
   end
-
+  
   def cancel
     @booking = Booking.find(params[:booking_id])
     @booking.update(status: "cancelled") # Payment cancelled, update booking status

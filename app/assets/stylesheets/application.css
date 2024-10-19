@@ -18,7 +18,7 @@
 /* app/assets/stylesheets/navbar.css */
 /* Navbar styles */
 .navbar {
-  box-shadow: 0 4px 8px rgba(204, 177, 177, 0.664); /* Shadow effect */
+  box-shadow: 0 4px 8px rgba(253, 251, 251, 0.966); /* Shadow effect */
 }
 
 .nav-link {
@@ -43,19 +43,25 @@
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Custom icon color */
 }
 
-// Styles for the search button
+
 .custom-search-btn {
-  background-color: #007BFF; /* Custom background color */
-  color: #FFFFFF; /* Custom text color */
-  border: none; /* Remove default border */
-  padding: 10px 20px; /* Padding for the button */
-  border-radius: 4px; /* Rounded corners */
-  transition: background-color 0.3s; /* Transition for background */
+  background-color: #7bafe7;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
 }
 
+
 .custom-search-btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #3683d5; 
+  color: #FFFFFF;
 }
+
+
+ 
+
 
 
   
