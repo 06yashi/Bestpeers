@@ -49,7 +49,8 @@ class BookingsController < ApplicationController
         render :new
       end
     else
-      flash[:alert] = "Error creating booking!"
+      flash.now[:alert]  # Error message
+      @cars = Car.all # Re-fetching cars to show in the form
       render :new
     end
   end
@@ -74,9 +75,6 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = Booking.includes(:car).where(user: current_user)
-    @cars = Car.all
-  @start_date = params[:start_date] # Get start date from params
-  @end_date = params[:end_date]
   end
 
  
