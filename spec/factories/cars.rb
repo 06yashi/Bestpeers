@@ -7,5 +7,5 @@ FactoryBot.define do
       seating_capacity { 5 }
       association :user
     end
-  end
+end
   

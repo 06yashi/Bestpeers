@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_130113) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_17_135801) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -75,6 +75,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_130113) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_charge_id"
+    t.string "payment_intent_id"
     t.index ["car_id"], name: "index_bookings_on_car_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -99,6 +100,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_130113) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "booking_id"
+    t.index ["booking_id"], name: "index_transactions_on_booking_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -120,5 +123,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_130113) do
   add_foreign_key "bookings", "cars"
   add_foreign_key "bookings", "users"
   add_foreign_key "cars", "users"
+  add_foreign_key "transactions", "bookings"
   add_foreign_key "transactions", "users"
 end
