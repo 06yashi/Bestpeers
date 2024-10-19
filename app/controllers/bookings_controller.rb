@@ -11,51 +11,49 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.user_id = current_user.id 
-    # Assuming you're using Devise for user authentication
     @booking.status = "pending" # Default status before payment
-
+  
     if @booking.save
-    
       if @booking.total_price.present?
         amount_in_cents = (@booking.total_price * 100).to_i
-       
-        # Create Stripe checkout session
+        
         session = Stripe::Checkout::Session.create({
           payment_method_types: ['card'],
           line_items: [{
             price_data: {
-              currency: 'inr', # Aap apni required currency yahan specify kar sakte hain
+              currency: 'inr',
               product_data: {
                 name: 'Car Booking',
                 description: "Booking for Car ID: #{@booking.car_id}",
               },
-              unit_amount: amount_in_cents # Stripe expects amount in cents
+              unit_amount: amount_in_cents,
             },
             quantity: 1,
           }],
           mode: 'payment',
-          success_url: checkout_success_url(booking_id: @booking.id),
+          payment_intent_data: {
+            capture_method: 'manual' # Manual capture enabled
+          },
+          success_url: checkout_success_url(booking_id: @booking.id, session_id: '{CHECKOUT_SESSION_ID}'),
           cancel_url: checkout_cancel_url(booking_id: @booking.id),
         })
-        # Redirect to Stripe checkout page
+        
+
+      
+      
         @booking.update(stripe_charge_id: session.id)
+  
         redirect_to session.url, allow_other_host: true
+      else
+        flash[:alert] = "Total price not available!"
+        render :new
       end
     else
       flash[:alert] = "Error creating booking!"
       render :new
     end
   end
-  
 
-
-  def show
-    @booking = Booking.find(params[:id])
-  end
-
-  def index
-    @bookings = Booking.includes(:car).where(user: current_user)
-  end
 
   def destroy
     if refund_payment(@booking.stripe_charge_id)
@@ -67,21 +65,44 @@ class BookingsController < ApplicationController
       redirect_to bookings_path
     end
   end
+  
+
+
+  def show
+    @booking = Booking.find(params[:id])
+  end
+
+  def index
+    @bookings = Booking.includes(:car).where(user: current_user)
+    @cars = Car.all
+  @start_date = params[:start_date] # Get start date from params
+  @end_date = params[:end_date]
+  end
+
+ 
 
   private
 
   def refund_payment(stripe_charge_id)
     begin
+      # Fetch the Stripe charge object
       charge = Stripe::Charge.retrieve(stripe_charge_id)
+
+      # Initiate the refund process
       refund = Stripe::Refund.create({
         charge: charge.id
       })
+
+      # Check if refund succeeded
       return true if refund.status == 'succeeded'
+
     rescue Stripe::StripeError => e
       Rails.logger.error "Stripe error while refunding charge: #{e.message}"
       return false
     end
   end
+
+
 
   def set_booking
     @booking = Booking.find(params[:id])
