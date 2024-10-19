@@ -32,9 +32,11 @@
           </td>
           <td>
           <% unless booking.status == 'cancelled' %>
-            <%= button_to 'Cancel Booking', booking, method: :delete, data: { confirm: "Are you sure you want to cancel this booking?" } %>
+            <%= button_to 'Request Refund', refund_booking_path(booking), method: :post, data: { confirm: "Are you sure you want a refund for this booking?" } %>
+
           <% end %>
         </td>
+        
         
         </tr>
       <% end %>
