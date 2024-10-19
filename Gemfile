@@ -6,7 +6,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.4"
 gem 'devise'
-gem 'activeadmin', '~> 2.9.0'
+gem 'activeadmin'
 
 gem 'sassc'
 gem 'stripe', '~> 7.0'
