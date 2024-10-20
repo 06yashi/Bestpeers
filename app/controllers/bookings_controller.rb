@@ -38,9 +38,6 @@ class BookingsController < ApplicationController
           cancel_url: checkout_cancel_url(booking_id: @booking.id),
         })
         
-
-      
-      
         @booking.update(stripe_charge_id: session.id)
   
         redirect_to session.url, allow_other_host: true
@@ -74,7 +71,8 @@ class BookingsController < ApplicationController
   end
 
   def index
-    @bookings = Booking.includes(:car).where(user: current_user)
+   
+  @bookings = Booking.includes(:car).where(user: current_user, status: 'paid')
   end
 
  
