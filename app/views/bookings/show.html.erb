@@ -4,8 +4,103 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Booking Invoice</title>
-  <%= stylesheet_link_tag 'bookings' %> 
-  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+    }
+
+    .invoice-header {
+      text-align: center;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 20px;
+    }
+
+    .invoice-header h1 {
+      font-size: 36px;
+      color: #333;
+    }
+
+    .invoice-header p {
+      font-size: 18px;
+      color: #666;
+    }
+
+    .invoice-info {
+      margin: 30px 0;
+    }
+
+    .invoice-info p {
+      font-size: 18px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .invoice-info p strong {
+      color: #007bff;
+    }
+
+    .invoice-details h3 {
+      color: #007bff;
+      font-size: 24px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr td {
+      font-size: 18px;
+    }
+
+    .invoice-footer {
+      text-align: center;
+      font-size: 16px;
+      color: #000;
+      margin-top: 30px;
+    }
+
+    .invoice-footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .invoice-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
 <body>
   <div class="invoice-container">
     <div class="invoice-header">
@@ -15,10 +110,8 @@
 
     <div class="invoice-info">
       <p><strong>Car Name:</strong> <%= @booking.car.name %></p>
-      <p><strong>Car ID:</strong> <%= @booking.car.id %></p>
-      <p><strong>Booking ID:</strong> <%= @booking.id %></p>
-      <p><strong>Customer Name:</strong> <%= @booking.user.id %></p> 
-      <p><strong>Email:</strong> <%= @booking.user.email %></p>
+      <p><strong>Car Model:</strong> <%= @booking.car.model %></p>
+      <p><strong>Customer Email:</strong> <%= @booking.user.email %></p> 
       <p><strong>Booking Date:</strong> <%= @booking.created_at.strftime('%d %B %Y') %></p>
       <p><strong>Start Date:</strong> <%= @booking.start_date.strftime('%d %B %Y') %></p>
       <p><strong>End Date:</strong> <%= @booking.end_date.strftime('%d %B %Y') %></p>
@@ -34,23 +127,21 @@
           </tr>
         </thead>
         <tbody>
-          
           <tr>
             <td>Total Days</td>
-            <td><%= (@booking.end_date - @booking.start_date).to_i %> days</td>
+            <% total_days = (@booking.end_date - @booking.start_date).to_i %>
+            <td><%= total_days %> <%= total_days == 1 ? 'day' : 'days' %></td>
           </tr>
           <tr>
-          
-          <tr>
             <td><strong>Total Price</strong></td>
-            <td><strong><%= number_to_currency(@booking.total_price) %></strong></td>
+            <td><strong><%= number_to_currency(@booking.total_price, unit: "₹") %></strong></td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="invoice-footer">
-      <p>If you have any queries regarding your booking, feel free to contact us at support@zoomcar.com</p>
+      <p>If you have any queries regarding your booking, feel free to contact us at <a href="mailto:yshrivastava@bestpeerscom.com">yshrivastava@bestpeers.com</a></p>
     </div>
   </div>
 </body>
