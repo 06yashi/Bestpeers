@@ -15,13 +15,13 @@ class UserMailer < ApplicationMailer
  
   def generate_pdf(booking)
     Prawn::Document.new do |pdf|
-      # Invoice Container Styling
-      pdf.fill_color 'FFFFFF'  # White background for the container
-      pdf.stroke_color 'DDDDDD'  # Light border
+
+      pdf.fill_color 'FFFFFF'  
+      pdf.stroke_color 'DDDDDD'  
       pdf.stroke_bounds
       pdf.move_down 20
   
-      # Invoice Header
+      
       pdf.fill_color '007BFF'
       pdf.font_size 30 do
         pdf.text "Booking Invoice", style: :bold, align: :center
@@ -31,7 +31,7 @@ class UserMailer < ApplicationMailer
       pdf.text "Thank you for your booking!", size: 18, align: :center, style: :italic
       pdf.move_down 20
   
-      # Booking Info
+      
       pdf.font_size 14
       pdf.text "Car Name: #{booking.car.name}", size: 16, style: :bold
       pdf.text "Car Model: #{booking.car.model}", size: 12
@@ -41,7 +41,7 @@ class UserMailer < ApplicationMailer
       pdf.text "End Date: #{booking.end_date.strftime('%d %B %Y')}", size: 12
       pdf.move_down 20
   
-      # Pricing Details
+     
       pdf.fill_color '007BFF'
       pdf.text "Pricing Details", size: 18, style: :bold
       pdf.move_down 10
@@ -52,13 +52,13 @@ class UserMailer < ApplicationMailer
       pdf.text "Total Price: #{'%.2f' % booking.total_price}", size: 12
       pdf.move_down 20
   
-      # Thank You Note
+  
       pdf.fill_color '007BFF'
       pdf.text "Thank you for choosing Zoom Car!", size: 12, style: :italic, align: :center
       pdf.move_down 10
       pdf.fill_color '000000'
   
-      # Footer
+     
       pdf.text "For any queries, contact us at support@zoomcar.com", size: 10, align: :center
       pdf.text "Visit our website: www.zoomcar.com", size: 10, align: :center
     end.render

@@ -11,10 +11,6 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
   # root 'home#index'
 
-  # config/routes.rb
-resources :bookings do
-  resources :payments, only: [:create, :destroy]
-end
 
 
    root 'cars#index'
@@ -22,7 +18,7 @@ end
 
    resources :bookings do
     member do
-      post 'refund'  # Add refund route for booking
+      post 'refund' 
     end
   end
 
