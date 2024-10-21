@@ -3,7 +3,6 @@ source "https://rubygems.org"
 
 
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.4"
 gem 'devise'
 gem 'activeadmin'
@@ -12,26 +11,15 @@ gem 'sassc'
 gem 'stripe', '~> 7.0'
 gem 'prawn'
 gem 'prawn-table'
-
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 group :test do
   gem 'rspec-rails'
 end
-
 group :development, :test do
   gem 'faker'
 end
-
-
-
-# Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 1.4"
-
-# Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
-
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]

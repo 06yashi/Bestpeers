@@ -49,7 +49,7 @@ class UserMailer < ApplicationMailer
       
       total_days = (booking.end_date - booking.start_date).to_i
       days_text = total_days == 1 ? 'day' : 'days'
-      pdf.text "Total Price: $#{'%.2f' % booking.total_price}", size: 12
+      pdf.text "Total Price: #{'%.2f' % booking.total_price}", size: 12
       pdf.move_down 20
   
       # Thank You Note
