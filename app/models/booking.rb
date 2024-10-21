@@ -1,11 +1,11 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :car
-
+  has_many :transactions, dependent: :destroy
   validates :start_date, :end_date, presence: true
   validate :start_date_must_be_before_end_date
   before_save :set_status_and_calculate_price
-   validate :car_availability
+  #  validate :car_availability
 
   def self.ransackable_associations(auth_object = nil)
     ["car", "user"]
@@ -25,21 +25,19 @@ class Booking < ApplicationRecord
       self.total_price = nil
     end
   end
-  def car_availability
+  # def car_availability
      
-    if Booking.where(car_id: car_id)
-               .where('start_date < ? AND end_date > ?', end_date, start_date)
-               .exists?
-      errors.add(:base, "Car is not available from #{start_date} to #{end_date}.")
-    end
-  end
+  #   if Booking.where(car_id: car_id)
+  #              .where('start_date < ? AND end_date > ?', end_date, start_date)
+  #              .exists?
+  #     errors.add(:base, "Car is not available from #{start_date} to #{end_date}.")
+  #   end
+  # end
 
   def start_date_must_be_before_end_date
     return unless start_date.present? && end_date.present?
-  
-    if start_date >= end_date
-      errors.add(:end_date, "must be after the start date.")
-    end
+    errors.add(:end_date, "must be after the start date.") if start_date >= end_date
   end
+  
   
 end

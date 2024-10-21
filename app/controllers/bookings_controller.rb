@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.user_id = current_user.id 
-    @booking.status = "pending" # Default status before payment
+    @booking.status = "pending" 
   
     if @booking.save
       if @booking.total_price.present?
@@ -32,13 +32,13 @@ class BookingsController < ApplicationController
           }],
           mode: 'payment',
           payment_intent_data: {
-            capture_method: 'manual' # Manual capture enabled
+            setup_future_usage: "off_session"
           },
-          success_url: checkout_success_url(booking_id: @booking.id, session_id: '{CHECKOUT_SESSION_ID}'),
+          success_url: checkout_success_url(booking_id: @booking.id),
           cancel_url: checkout_cancel_url(booking_id: @booking.id),
         })
         
-        @booking.update(stripe_charge_id: session.id)
+        @booking.update!(stripe_charge_id: session.id)
   
         redirect_to session.url, allow_other_host: true
       else
@@ -46,8 +46,8 @@ class BookingsController < ApplicationController
         render :new
       end
     else
-      flash.now[:alert]  # Error message
-      @cars = Car.all # Re-fetching cars to show in the form
+      flash.now[:alert] 
+      @cars = Car.all 
       render :new
     end
   end
@@ -55,6 +55,7 @@ class BookingsController < ApplicationController
 
   def destroy
     if refund_payment(@booking.stripe_charge_id)
+      @booking.transactions.destroy_all
       @booking.destroy
       flash[:notice] = "Booking was successfully cancelled and refund has been initiated."
       redirect_to bookings_path
@@ -73,6 +74,10 @@ class BookingsController < ApplicationController
   def index
    
   @bookings = Booking.includes(:car).where(user: current_user, status: 'paid')
+  @bookings = Booking.includes(:car).where(user: current_user)
+  @cars = Car.all
+  @start_date = params[:start_date] # Get start date from params
+  @end_date = params[:end_date]
   end
 
  
@@ -80,13 +85,14 @@ class BookingsController < ApplicationController
   private
 
   def refund_payment(stripe_charge_id)
+    byebug
     begin
-      # Fetch the Stripe charge object
-      charge = Stripe::Charge.retrieve(stripe_charge_id)
-
+      # Fetch the Stripe c checkout_session.payment_intentharge object
+      checkout_session = Stripe::Checkout::Session.retrieve(stripe_charge_id)
+       payment_intent = checkout_session.payment_intent
       # Initiate the refund process
       refund = Stripe::Refund.create({
-        charge: charge.id
+        payment_intent: payment_intent
       })
 
       # Check if refund succeeded
