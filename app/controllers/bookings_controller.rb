@@ -85,7 +85,6 @@ class BookingsController < ApplicationController
   private
 
   def refund_payment(stripe_charge_id)
-    byebug
     begin
       # Fetch the Stripe c checkout_session.payment_intentharge object
       checkout_session = Stripe::Checkout::Session.retrieve(stripe_charge_id)

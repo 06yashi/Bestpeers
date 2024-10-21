@@ -2,6 +2,7 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :car
   has_many :transactions, dependent: :destroy
+  
   validates :start_date, :end_date, presence: true
   validate :start_date_must_be_before_end_date
   before_save :set_status_and_calculate_price
