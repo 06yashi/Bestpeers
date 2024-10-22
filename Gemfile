@@ -18,7 +18,7 @@ end
 group :development, :test do
   gem 'faker'
 end
-gem "sqlite3", ">= 1.4"
+gem 'pg', '~> 1.2'
 gem "puma", ">= 5.0"
 gem "importmap-rails"
 

@@ -1,10 +1,23 @@
+databases:
+  - name: zoom_car
+    databaseName: zoom_car_production
+    user: developer
+    plan: free
+
 services:
   - type: web
-    name: Zoom-Car
-    env: ruby
-    buildCommand: bundle install
-    startCommand: bundle exec rails server -p $PORT
-    rootDir: ./Zoom-Car
+    name: zoomCar
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec rails server"
     envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zoom_car
+          property: connectionString
       - key: RAILS_MASTER_KEY
-        value: b99d75a2eed370cb2a6f6e73504423c9c
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2
+
