@@ -6,7 +6,7 @@ databases:
 
 services:
   - type: web
-    name: zoom_car
+    name: Zoom_Car
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
