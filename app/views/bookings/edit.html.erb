@@ -1,0 +1,43 @@
+<% provide(:title, 'Edit Booking') %>
+
+<h1>Edit Booking</h1>
+
+<%= form_with(model: @booking, local: true) do |form| %>
+  <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+
+      <ul>
+        <% @booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_select :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_select :end_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_price %>
+    <%= form.number_field :total_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(['pending', 'confirmed', 'canceled', 'refunded'], @booking.status) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Update Booking" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', booking_path(@booking) %>

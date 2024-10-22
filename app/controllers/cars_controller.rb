@@ -1,37 +1,43 @@
+
 class CarsController < ApplicationController
   before_action :authenticate_user!
+  
   def index
-    @cars = Car.all
-
-    if params[:model].present?
-      @cars = @cars.where('model ILIKE ?', "%#{params[:model]}%")
-    end
-
-    if params[:fuel_type].present?
-      @cars = @cars.where(fuel_type: params[:fuel_type])
-    end
-  end
-
-  def show
-    @car = Car.find(params[:id])
-  end
-
-  def new
-    @car = Car.new
-  end
-
-  def create
-    @car = Car.new(car_params)
-    if @car.save
-      redirect_to @car
+    # byebug
+    if params[:query].present?
+      # @cars = Car.where("name ILIKE ?", "%#{params[:query]}%")
+      @cars = Car.find_by(name: params[:query].capitalize)
     else
-      render :new
+      @cars = Car.all
     end
   end
+
+
+  def search
+    if params[:query].present?
+      query = params[:query].strip.downcase 
+      query_numeric = query.to_i 
+      price_numeric = query.to_f 
+  
+      Rails.logger.debug "Search Query: #{query}"
+  
+     
+      @cars = Car.where(
+        "LOWER(name) LIKE ? OR LOWER(fuel_type) LIKE ? OR seating_capacity = ? OR price = ?", 
+        "%#{query}%", "%#{query}%", query_numeric, price_numeric
+      )
+    else
+      @cars = Car.all 
+    end
+  
+    render :index 
+  end
+  
+  
 
   private
 
   def car_params
-    params.require(:car).permit(:title, :description, :price, :available)
+    params.require(:car).permit(:title, :description, :price, :available, :photo)
   end
 end

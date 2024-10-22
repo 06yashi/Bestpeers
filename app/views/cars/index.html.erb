@@ -1,14 +1,24 @@
+
 <div class="container">
   <div class="car-listing">
-    <% @cars.each do |car| %>
-      <div class="car-item">
-      <h1><%= car.name %></h1>
-        <h2><%= car.model %></h2>
-        <p>Price: <%= car.price %></p>
-        <p>Fuel Type: <%= car.fuel_type %></p>
-        <p>Seating Capacity: <%= car.seating_capacity %></p> 
-        <%= link_to 'Book Now', new_booking_path(car_id: car.id), class: 'btn btn-primary' %>
-      </div>
+    <% if @cars.any? %>
+      <% @cars.each do |car| %>
+        <div class="car-item">
+          <p>
+            <% if car.photo.attached? %>
+              <%= image_tag car.photo, size: "400x300" %>
+            <% else %>
+              No photo available
+            <% end %>
+          </p>
+          <h2><%= car.name %> <%= car.model %></h2>
+          <p>Seating Capacity: <%= car.seating_capacity %>  Fuel: <%= car.fuel_type %></p>
+          <p>Price: <%= car.price %></p>
+          <%= link_to 'Book Now', new_booking_path(car_id: car.id), class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No cars found.</p> 
     <% end %>
   </div>
 </div>

@@ -11,10 +11,22 @@ Rails.application.routes.draw do
   get 'up' => 'rails/health#show', as: :rails_health_check
   # root 'home#index'
 
-   root 'cars#index'
 
-  resources :cars
-  resources :bookings
-  # resources :bookings
-  # resources :checkouts, only: [:new, :create]
+
+   root 'cars#index'
+   get 'search_cars', to: 'cars#search', as: 'search_cars'
+
+   resources :bookings do
+    member do
+      post 'refund' 
+    end
+  end
+
+ resources :cars, only: [:index]
+   resources :bookings
+   resources :cars
+   get 'checkout/success', to: 'checkout#success', as: 'checkout_success'
+   get 'checkout/cancel', to: 'checkout#cancel', as: 'checkout_cancel'
+   post 'checkout/refund', to: 'checkout#refund', as: 'checkout_refund'
+
 end

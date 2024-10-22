@@ -1,21 +1,26 @@
-<h2>Your All Bookings</h2>
 <div>
 <table class="booking-table">
   <thead>
     <tr>
-      <th>Car ID</th>
+    <th>car name</th>
       <th>Start Date</th>
       <th>End Date</th>
       <th>Status</th>
+      <th>Cancel button </th>
     </tr>
   </thead>
   <tbody>
     <% if @bookings.any? %>
       <% @bookings.each do |booking| %>
         <tr>
-          <td><%= booking.car_id %></td>
+          <td><%= booking.car.name %> (<%= booking.car.model %>)</td>
+          
           <td><%= booking.start_date.strftime("%B %d, %Y") %></td>
+          
+        
           <td><%= booking.end_date.strftime("%B %d, %Y") %></td>
+          
+         
           <td>
             <% if booking.start_date > Date.today %>
               Upcoming
@@ -25,7 +30,12 @@
               Ongoing
             <% end %>
           </td>
-        </tr>
+          <td>
+          <% unless booking.status == 'cancelled' %>
+          <%= button_to 'Cancel Booking', booking, method: :delete, class:"custom-button", data: { confirm: "Are you sure you want to cancel this booking?" } %>
+          <% end %>
+        </td>
+     </tr>
       <% end %>
     <% else %>
       <tr>
@@ -35,4 +45,3 @@
   </tbody>
 </table>
 </div>
-

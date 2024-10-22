@@ -1,26 +1,40 @@
 body {
-  background-color: #f4f4f4;
+  background-color: #fff;;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
 .navbar {
-  background-color: #007bff;
+  background-color: #e5e8eb;
   padding: 10px;
   color: white;
   font-size: 18px;
   margin-bottom: 30px; /* Navbar ke neeche gap badhane ke liye margin-bottom add kiya */
 }
 
-/* Booking Form Container */
+body {
+  background-color: #f8f9fa; /* Light background for better contrast */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #343a40; /* Darker navbar for contrast */
+  padding: 10px;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
 .booking-form-container {
   width: 100%;
   max-width: 600px;
-  margin: 50px auto 0; /* Isse booking form ko navbar se door rakhenge */
+  margin: 50px auto 0;
   background-color: #fff;
   padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
@@ -31,13 +45,20 @@ body {
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold; /* Bold labels for better readability */
 }
 
 .form-control {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 12px; /* Increased padding for better touch */
+  border: 1px solid #ced4da; /* More neutral border color */
   border-radius: 5px;
+  transition: border-color 0.3s ease; /* Smooth transition for focus */
+}
+
+.form-control:focus {
+  border-color: #80bdff; /* Highlight border on focus */
+  outline: none; /* Remove default outline */
 }
 
 .flex-container {
@@ -54,17 +75,19 @@ body {
 }
 
 button {
-  background-color: #007bff;
-  color: white;
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text for better contrast */
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
+  font-size: 16px; /* Larger font size for buttons */
+  transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darker shade on hover */
 }
 
 .alert {
@@ -82,3 +105,153 @@ button:hover {
   background-color: #f8d7da;
   color: #721c24;
 }
+body {
+  background-color: #f0f4f8; /* Soft light background for a modern feel */
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Modern font */
+  margin: 0;
+  padding: 0;
+}
+
+
+.booking-form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 50px auto 0;
+  background-color: #fff;
+  padding: 30px; /* Increased padding for a spacious feel */
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Softer shadow */
+  border-radius: 10px; /* Rounded corners */
+  transition: transform 0.3s ease; /* Animation for hover effect */
+}
+
+.booking-form-container:hover {
+  transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #343a40; /* Darker label color */
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px; /* Increased padding */
+  border: 1px solid #ccc; /* Neutral border color */
+  border-radius: 5px;
+  transition: border-color 0.3s ease; /* Transition for border color */
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Highlight border on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-select {
+  width: 48%;
+}
+
+#card-element {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text */
+  padding: 12px 20px; /* Slightly larger padding */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px; /* Larger font size */
+  transition: background-color 0.3s ease, transform 0.2s; /* Smooth transition */
+  position: relative; /* For button hover effect */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+button:active {
+  transform: translateY(0); /* Return to original position */
+}
+
+.alert {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  transition: opacity 0.5s; /* Smooth transition for alerts */
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Space between table and other elements */
+}
+
+.booking-table th, .booking-table td {
+  border: 1px solid #ddd;
+  padding: 12px; /* Increased padding */
+  text-align: left;
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.booking-table th {
+  background-color: #007bff; /* Primary color for headers */
+  color: white; /* White text for contrast */
+  text-transform: uppercase; /* Uppercase for headers */
+}
+
+.booking-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.booking-table tr:hover {
+  background-color: #eaeaea; /* Subtle highlight on hover */
+}
+
+.booking-table td button {
+  background-color: #dc354580; /* Red for cancel buttons */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s; /* Transition for button hover effect */
+}
+
+.booking-table td button:hover {
+  background-color: #ff1c1c; /* Darker red on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.booking-table td button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+
