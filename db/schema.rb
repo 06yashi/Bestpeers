@@ -11,13 +11,16 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_10_19_164629) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.string "author_type"
-    t.integer "author_id"
+    t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
@@ -66,8 +69,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_19_164629) do
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "car_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "car_id", null: false
     t.date "start_date"
     t.date "end_date"
     t.decimal "total_price"
@@ -80,7 +83,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_19_164629) do
   end
 
   create_table "cars", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "name"
     t.string "model"
     t.datetime "created_at", null: false
@@ -92,15 +95,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_19_164629) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "stripe_charge_id"
     t.integer "amount"
     t.string "currency"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "booking_id"
-    t.index ["booking_id"], name: "index_transactions_on_booking_id"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -122,6 +123,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_19_164629) do
   add_foreign_key "bookings", "cars"
   add_foreign_key "bookings", "users"
   add_foreign_key "cars", "users"
-  add_foreign_key "transactions", "bookings"
   add_foreign_key "transactions", "users"
 end
