@@ -7,7 +7,7 @@ RSpec.describe CarsController, type: :controller do
     let!(:user) { FactoryBot.create(:user) } # Assuming you have a User factory
 
     before do
-      sign_in user # Authenticate the user before each test
+      sign_in user 
     end
 
     it "filters cars based on query" do

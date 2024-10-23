@@ -1,12 +1,12 @@
 databases:
-  - name: zoom_car
+  - name: zoom_car # database
     databaseName: zoom_car_production
     user: developer
     plan: free
 
 services:
   - type: web
-    name: Zoom_Car
+    name: Zoom_Car #Wev-sevice
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"

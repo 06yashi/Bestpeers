@@ -9,6 +9,10 @@ class Car < ApplicationRecord
 
   has_one_attached :photo
 
+  def self.ransackable_associations(auth_object = nil)
+    ["bookings", "user"]
+  end
+
  
   def self.ransackable_attributes(_auth_object = nil)
     %w[created_at fuel_type id model name price seating_capacity updated_at user_id]
