@@ -33,8 +33,8 @@ default: &default
   idle_timeout: <%= ENV["RAILS_IDLE_CONNECTION"] || 60 %>
   port: <%= ENV['RAILS_DATABASE_PORT'] || 5432 %>
   host: localhost
-  username: ENV['USER_NAME']
-  password: ENV['DB_PASSWORD']
+  username:  developer                #ENV['USER_NAME']
+  password:  developer               #ENV['DB_PASSWORD']
 
 development:
   <<: *default
